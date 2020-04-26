@@ -4,8 +4,35 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        //getBinary();
-        getOctalLastDigit();
+        Scanner scanner = new Scanner(System.in);
+        long num = scanner.nextInt();
+        int radix = scanner.nextInt();
+        String prefix;
+        switch (radix) {
+            case 16:
+                prefix = "0x";
+                break;
+            case 8:
+                prefix = "0";
+                break;
+            case 2:
+                prefix = "0b";
+                break;
+            default:
+                prefix = "?";
+        }
+
+        switch (radix){
+            case 16:
+            case 8:
+            case 2:
+                System.out.println(prefix.concat(Long.toString(num, radix)));
+                break;
+            default:
+                System.out.println("unspoorted radix");
+        }
+
+
     }
 
     private static void getOctalLastDigit() {
