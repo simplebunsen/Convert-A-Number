@@ -5,33 +5,33 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        long num = scanner.nextInt();
-        int radix = scanner.nextInt();
-        String prefix;
-        switch (radix) {
-            case 16:
-                prefix = "0x";
-                break;
-            case 8:
-                prefix = "0";
-                break;
-            case 2:
-                prefix = "0b";
-                break;
-            default:
-                prefix = "?";
+        int sourceRadix = scanner.nextInt();
+        scanner.nextLine();
+        long num = 0;
+        if (sourceRadix == 1) {
+            long tempnum = scanner.nextInt();
+            for (int i = 0; i <= (int) (Math.log10(tempnum)); i++) {
+                num++;
+            }
+        } else {
+            num = Long.parseLong(scanner.nextLine(), sourceRadix);
+        }
+        int targetRadix = scanner.nextInt();
+
+        if(sourceRadix > 36 || targetRadix > 36){
+            System.out.println("Radix too large");
+            return;
         }
 
-        switch (radix){
-            case 16:
-            case 8:
-            case 2:
-                System.out.println(prefix.concat(Long.toString(num, radix)));
-                break;
-            default:
-                System.out.println("unspoorted radix");
-        }
 
+        if (targetRadix == 1) {
+            while (num > 0) {
+                System.out.print(1);
+                num--;
+            }
+        } else {
+            System.out.println(Long.toString(num, targetRadix));
+        }
 
     }
 
@@ -46,7 +46,7 @@ public class Main {
         long binary = 0;
 
         long currentPow = 0;
-        int currentPowOf = 0;
+        int currentPowOf;
         for (int i = 0; true; i++) {
             long prevPow = currentPow;
             currentPow = (long) Math.pow(2, i);
